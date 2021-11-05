@@ -27,4 +27,4 @@ deliasfrancisco@gmail.com
 
 [GitHub](https://github.com/deliasfrancisco)
 
-[E-mail](deliasfrancisco@gmail.com)
+[deliasfrancisco@gmail.com](deliasfrancisco@gmail.com)
