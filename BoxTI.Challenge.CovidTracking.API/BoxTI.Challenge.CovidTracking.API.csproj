@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.20" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.20" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.20">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BoxTI.Challenge.CovidTracking.Client\BoxTI.Challenge.CovidTracking.Client.csproj" />
+    <ProjectReference Include="..\BoxTI.Challenge.CovidTracking.Data\BoxTI.Challenge.CovidTracking.Data.csproj" />
+    <ProjectReference Include="..\BoxTI.Challenge.CovidTracking.Models\BoxTI.Challenge.CovidTracking.Models.csproj" />
+    <ProjectReference Include="..\BoxTI.Challenge.CovidTracking.Services\BoxTI.Challenge.CovidTracking.Services.csproj" />
+  </ItemGroup>
+
+
+</Project>
