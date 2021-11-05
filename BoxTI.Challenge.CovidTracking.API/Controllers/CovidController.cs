@@ -54,6 +54,21 @@ namespace BoxTI.Challenge.CovidTracking.API.Controllers
             }
         }
 
+        [HttpPost("country")]
+        public async Task<IActionResult> GetByCountryName(GetIdDto dto)
+        {
+            try
+            {
+                var model = await _covidRepository.GetById(dto.Id);
+                var results = _mapper.Map<CovidDto>(model);
+                return Ok(results);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Query failed");
+            }
+        }
+
         [HttpPost("post")]
         public async Task<IActionResult> Post(CovidDto model)
         {
