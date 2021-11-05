@@ -16,10 +16,10 @@ namespace BoxTI.Challenge.CovidTracking.Models.Entities
 
 		public Covid(int infected, int dead, int recovered, int countryId)
 		{
-			DomainException.ToThrow(infected >= 0, "Infected amount invalid");
-			DomainException.ToThrow(dead >= 0, "Dead amount invalid");
-			DomainException.ToThrow(recovered >= 0, "Recovered amount invalid");
-			DomainException.ToThrow(CountryId > 0, "GuiaId invalid");
+			DomainException.ToThrow(infected < 0, "Infected amount invalid");
+			DomainException.ToThrow(dead < 0, "Dead amount invalid");
+			DomainException.ToThrow(recovered < 0, "Recovered amount invalid");
+			DomainException.ToThrow(countryId <= 0, "GuiaId invalid");
 
 			Infected = infected;
 			Dead = dead;

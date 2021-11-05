@@ -10,7 +10,6 @@ namespace BoxTI.Challenge.CovidTracking.Models.Dtos
 		public int Infected { get; set; }
 		public int Dead { get; set; }
 		public int Recovered { get; set; }
-		public int Vaccinated { get; set; }
-		public CountryDto Country { get; set; }
+		public int CountryId { get; set; }
 	}
 }

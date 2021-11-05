@@ -54,12 +54,12 @@ namespace BoxTI.Challenge.CovidTracking.API.Controllers
             }
         }
 
-        [HttpPost("country")]
-        public async Task<IActionResult> GetByCountryName(GetIdDto dto)
+        [HttpPost("FindByCountry")]
+        public async Task<IActionResult> GetByCountryName(GetByNameDto dto)
         {
             try
             {
-                var model = await _covidRepository.GetById(dto.Id);
+                var model = await _covidRepository.GetByCountry(dto.Name);
                 var results = _mapper.Map<CovidDto>(model);
                 return Ok(results);
             }
