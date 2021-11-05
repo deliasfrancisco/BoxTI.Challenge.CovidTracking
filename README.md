@@ -1,6 +1,6 @@
 # TESTE TÉCNICO BOXTI
 
-> Esse projeto foi criado por Diego Francisco como teste de deselvolvimento de uma API C# .NET.
+> Esse projeto foi criado por Diego Francisco como teste de desenvolvimento de uma API C# .NET.
 ## Requisitos para instalação e execução
 
 - [Visual Studio 2019](https://visualstudio.microsoft.com/pt-br/thank-you-downloading-visual-studio/?sku=Community&rel=16)
