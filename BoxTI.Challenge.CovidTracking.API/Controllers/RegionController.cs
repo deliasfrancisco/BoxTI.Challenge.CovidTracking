@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BoxTI.Challenge.CovidTracking.Models.Dtos;
 using BoxTI.Challenge.CovidTracking.Models.Entities;
+using BoxTI.Challenge.CovidTracking.Models.ViewModel;
 using BoxTI.Challenge.CovidTracking.Services.IRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,15 +14,15 @@ namespace BoxTI.Challenge.CovidTracking.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-	public class CountryController : ControllerBase
+	public class RegionController : ControllerBase
 	{
 		private readonly IMapper _mapper;
-		private readonly ICountryRepository _countryRepository;
+		private readonly IRegionRepository _regionRepository;
 
-		public CountryController(IMapper mapper, ICountryRepository countryRepository)
+		public RegionController(IMapper mapper, IRegionRepository regionRepository)
 		{
 			_mapper = mapper;
-			_countryRepository = countryRepository;
+			_regionRepository = regionRepository;
 		}
 
         [HttpGet]
@@ -29,8 +30,8 @@ namespace BoxTI.Challenge.CovidTracking.API.Controllers
         {
             try
             {
-                var model = await _countryRepository.GetAll(); // Lista de array
-                var results = _mapper.Map<CountryDto[]>(model); // Add o IEnumerable quando o mapeamento receber como parametro uma lista
+                var model = await _regionRepository.GetAll();
+                var results = _mapper.Map<RegionViewModel[]>(model); // Add o IEnumerable quando o mapeamento receber como parametro uma lista
                 return Ok(results);
             }
             catch (Exception ex)
@@ -44,8 +45,8 @@ namespace BoxTI.Challenge.CovidTracking.API.Controllers
         {
             try
             {
-                var model = await _countryRepository.GetById(dto.Id);
-                var results = _mapper.Map<CountryDto>(model);
+                var model = await _regionRepository.GetById(dto.Id);
+                var results = _mapper.Map<RegionViewModel>(model);
                 return Ok(results);
             }
             catch
@@ -59,8 +60,8 @@ namespace BoxTI.Challenge.CovidTracking.API.Controllers
         {
             try
             {
-                var model = await _countryRepository.GetByCountryName(dto.Name);
-                var result = _mapper.Map<CountryDto>(model);
+                var model = await _regionRepository.GetByCountryName(dto.Name);
+                var result = _mapper.Map<RegionViewModel>(model);
                 return Ok(result);
             }
             catch
@@ -70,16 +71,16 @@ namespace BoxTI.Challenge.CovidTracking.API.Controllers
         }
 
         [HttpPost("post")]
-        public async Task<IActionResult> Post(CountryDto model)
+        public async Task<IActionResult> Post(RegionDto model)
         {
             try
             {
-                var results = _mapper.Map<Country>(model);
-                _countryRepository.Add(results);
+                var results = _mapper.Map<Region>(model);
+                _regionRepository.Add(results);
 
-                if (await _countryRepository.SaveChangesAsync())
+                if (await _regionRepository.SaveChangesAsync())
                 {
-                    return Created($"/api/country/{results.Id}", _mapper.Map<CountryDto>(model));
+                    return Created($"/api/region/{results.Id}", _mapper.Map<RegionViewModel>(model));
                 }
             }
             catch (Exception ex)
@@ -91,22 +92,22 @@ namespace BoxTI.Challenge.CovidTracking.API.Controllers
         }
 
         [HttpPut("put")]
-        public async Task<IActionResult> Put(CountryDto model)
+        public async Task<IActionResult> Put(RegionDto model)
         {
             try
             {
-                var country = await _countryRepository.GetById(model.Id);
+                var region = await _regionRepository.GetById(model.Id);
 
-                _mapper.Map(model, country);
+                _mapper.Map(model, region);
 
-                if (country == null)
+                if (region == null)
                     return NotFound();
 
-                _countryRepository.Update(country);
+                _regionRepository.Update(region);
 
-                if (await _countryRepository.SaveChangesAsync())
+                if (await _regionRepository.SaveChangesAsync())
                 {
-                    return Created($"/api/country/{model.Id}", _mapper.Map<CountryDto>(model));
+                    return Created($"/api/region/{model.Id}", _mapper.Map<RegionViewModel>(model));
                 }
             return BadRequest();
             }
@@ -122,14 +123,14 @@ namespace BoxTI.Challenge.CovidTracking.API.Controllers
         {
             try
             {
-                var model = await _countryRepository.GetById(dto.Id);
+                var model = await _regionRepository.GetById(dto.Id);
 
                 if (model == null)
                     return NotFound();
 
-                _countryRepository.Delete(model);
+                _regionRepository.Delete(model);
 
-                if (await _countryRepository.SaveChangesAsync())
+                if (await _regionRepository.SaveChangesAsync())
                 {
                     return Ok();
                 }

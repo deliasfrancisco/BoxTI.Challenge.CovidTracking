@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BoxTI.Challenge.CovidTracking.Models.Dtos
 {
-	public class CountryDto
+	public class RegionDto
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }

@@ -13,7 +13,7 @@ namespace BoxTI.Challenge.CovidTracking.API
 	{
         public static void RegisterDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-			services.AddScoped<ICountryRepository, CountryRepository>();
+			services.AddScoped<IRegionRepository, RegionRepository>();
 			services.AddScoped<ICovidRepository, CovidRepository>();
 
 		}

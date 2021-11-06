@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace BoxTI.Challenge.CovidTracking.Services.IRepository
 {
-	public interface ICountryRepository : IRepositoryBase
+	public interface IRegionRepository : IRepositoryBase
 	{
-		Task<List<Country>> GetAll();
-		Task<Country> GetById(int id);
-		Task<Country> GetByCountryName(string name);
+		Task<List<Region>> GetAll();
+		Task<Region> GetById(int id);
+		Task<Region> GetByCountryName(string name);
 	}
 }

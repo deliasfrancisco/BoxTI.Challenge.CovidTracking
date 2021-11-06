@@ -10,29 +10,29 @@ using System.Threading.Tasks;
 
 namespace BoxTI.Challenge.CovidTracking.Services.Repository
 {
-	public class CountryRepository : ICountryRepository
+	public class RegionRepository : IRegionRepository
 	{
 		private readonly BoxTIContext _context;
 
-		public CountryRepository(BoxTIContext context)
+		public RegionRepository(BoxTIContext context)
 		{
 			_context = context;
 		}
 
-		public async Task<List<Country>> GetAll()
+		public async Task<List<Region>> GetAll()
 		{
-			return await _context.Set<Country>()
+			return await _context.Set<Region>()
 				.ToListAsync();
 		}
 
-		public async Task<Country> GetByCountryName(string name)
+		public async Task<Region> GetByCountryName(string name)
 		{
-			return await _context.Set<Country>().FirstOrDefaultAsync(x => x.Name == name);
+			return await _context.Set<Region>().FirstOrDefaultAsync(x => x.Name == name);
 		}
 
-		public async Task<Country> GetById(int id)
+		public async Task<Region> GetById(int id)
 		{
-			return await _context.Set<Country>().FirstOrDefaultAsync(x => x.Id == id);
+			return await _context.Set<Region>().FirstOrDefaultAsync(x => x.Id == id);
 		}
 
 		public void Add<T>(T entity) where T : class

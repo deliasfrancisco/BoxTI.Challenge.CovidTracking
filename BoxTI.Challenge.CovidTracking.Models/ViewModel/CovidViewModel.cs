@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BoxTI.Challenge.CovidTracking.Models.Dtos
+namespace BoxTI.Challenge.CovidTracking.Models.ViewModel
 {
-	public class CovidDto
+	public class CovidViewModel
 	{
-		public int Id { get; set; }
 		public int Infected { get; set; }
 		public int Dead { get; set; }
 		public int Recovered { get; set; }
-		public int RegionId { get; set; }
+		public RegionViewModel Region { get; set; }
 	}
 }

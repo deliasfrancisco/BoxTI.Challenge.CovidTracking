@@ -5,12 +5,12 @@ using System.Text;
 
 namespace BoxTI.Challenge.CovidTracking.Models.Entities
 {
-	public class Country : BaseEntity
+	public class Region : BaseEntity
 	{
 		public string Name { get; private set; }
 		public string Initials { get; private set; }
 
-		public Country(string name, string initials)
+		public Region(string name, string initials)
 		{
 			DomainException.ToThrow(!string.IsNullOrEmpty(Name), "Country name invalid");
 			DomainException.ToThrow(!string.IsNullOrEmpty(Initials), "Initials invalid");

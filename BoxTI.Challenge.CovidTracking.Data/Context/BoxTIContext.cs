@@ -15,14 +15,14 @@ namespace BoxTI.Challenge.CovidTracking.Data.Context
 		{
 
 		}
-		public DbSet<Country> Countries { get; set; }
+		public DbSet<Region> Regions { get; set; }
 		public DbSet<Covid> Covid { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 			base.OnModelCreating(builder);
 
-			builder.Entity<Covid>().HasKey(c => new { c.Id, c.CountryId });
+			builder.Entity<Covid>().HasKey(c => new { c.Id, c.RegionId });
 		}
 	}
 }
