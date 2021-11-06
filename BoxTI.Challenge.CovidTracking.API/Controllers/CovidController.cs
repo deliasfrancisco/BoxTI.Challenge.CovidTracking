@@ -26,7 +26,7 @@ namespace BoxTI.Challenge.CovidTracking.API.Controllers
 			_covidRepository = covidRepository;
 		}
 
-        [HttpGet]
+        [HttpGet("getAll")]
         public async Task<IActionResult> GetAll()
         {
             try
