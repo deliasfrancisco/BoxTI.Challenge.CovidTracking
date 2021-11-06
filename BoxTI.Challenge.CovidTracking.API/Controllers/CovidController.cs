@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using BoxTI.Challenge.CovidTracking.Models.Dtos;
 using BoxTI.Challenge.CovidTracking.Models.Entities;
+using BoxTI.Challenge.CovidTracking.Models.ViewModel;
 using BoxTI.Challenge.CovidTracking.Services.IRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BoxTI.Challenge.CovidTracking.API.Controllers
@@ -30,7 +32,7 @@ namespace BoxTI.Challenge.CovidTracking.API.Controllers
             try
             {
                 var model = await _covidRepository.GetAll();
-                var results = _mapper.Map<CovidDto[]>(model);
+                var results = _mapper.Map<CovidViewModel[]>(model);
                 return Ok(results);
             }
             catch (Exception ex)
@@ -45,7 +47,7 @@ namespace BoxTI.Challenge.CovidTracking.API.Controllers
             try
             {
                 var model = await _covidRepository.GetById(dto.Id);
-                var results = _mapper.Map<CovidDto>(model);
+                var results = _mapper.Map<CovidViewModel>(model);
                 return Ok(results);
             }
             catch
@@ -60,8 +62,36 @@ namespace BoxTI.Challenge.CovidTracking.API.Controllers
             try
             {
                 var model = await _covidRepository.GetByCountry(dto.Name);
-                var results = _mapper.Map<CovidDto>(model);
+
+				if (model is null)
+                    return NotFound();
+
+                var results = _mapper.Map<CovidViewModel>(model);
                 return Ok(results);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Query failed");
+            }
+        }
+
+        [HttpPost("ExportDataCountry")]
+        public async Task<IActionResult> ExportCSVFile(GetByNameDto dto)
+        {
+            try
+            {
+                var model = await _covidRepository.GetByCountry(dto.Name);
+
+                if (model is null)
+                    return NotFound();
+
+                var builder = new StringBuilder();
+                builder.AppendLine($"Pais: {model.Region.Name}");
+                builder.AppendLine($"Numero de infectados: {model.Infected}");
+                builder.AppendLine($"Numero de mortos: {model.Dead}");
+                builder.AppendLine($"Numero de recuperados: {model.Recovered}");
+
+                return File(Encoding.UTF8.GetBytes(builder.ToString()),"text/csv",$"{model.Region.Name}InfoCovid.csv");
             }
             catch
             {
@@ -79,15 +109,16 @@ namespace BoxTI.Challenge.CovidTracking.API.Controllers
 
                 if (await _covidRepository.SaveChangesAsync())
                 {
-                    return Created($"/api/country/{results.Id}", _mapper.Map<CovidDto>(model));
+                    return Created($"/api/covid/{results.Id}", _mapper.Map<CovidViewModel>(model));
                 }
+
+                return BadRequest();
             }
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Query failed: {ex.Message}");
             }
 
-            return BadRequest();
         }
 
         [HttpPut("put")]
@@ -106,8 +137,9 @@ namespace BoxTI.Challenge.CovidTracking.API.Controllers
 
                 if (await _covidRepository.SaveChangesAsync())
                 {
-                    return Created($"/api/covid/{model.Id}", _mapper.Map<CountryDto>(model));
+                    return Created($"/api/covid/{model.Id}", _mapper.Map<CovidViewModel>(model));
                 }
+
                 return BadRequest();
             }
             catch (Exception ex)
