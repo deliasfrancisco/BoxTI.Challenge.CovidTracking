@@ -4,14 +4,16 @@ using BoxTI.Challenge.CovidTracking.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BoxTI.Challenge.CovidTracking.Data.Migrations
 {
     [DbContext(typeof(BoxTIContext))]
-    partial class BoxTIContextModelSnapshot : ModelSnapshot
+    [Migration("20211105200911_alter_name_table_country_to_region_entity")]
+    partial class alter_name_table_country_to_region_entity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,7 +26,7 @@ namespace BoxTI.Challenge.CovidTracking.Data.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<int>("RegionId")
+                    b.Property<int>("CountryId")
                         .HasColumnType("int");
 
                     b.Property<int>("Dead")
@@ -36,9 +38,9 @@ namespace BoxTI.Challenge.CovidTracking.Data.Migrations
                     b.Property<int>("Recovered")
                         .HasColumnType("int");
 
-                    b.HasKey("Id", "RegionId");
+                    b.HasKey("Id", "CountryId");
 
-                    b.HasIndex("RegionId");
+                    b.HasIndex("CountryId");
 
                     b.ToTable("Covid");
                 });
@@ -58,7 +60,7 @@ namespace BoxTI.Challenge.CovidTracking.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Regions");
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("BoxTI.Challenge.CovidTracking.Models.Identity.Role", b =>
@@ -273,9 +275,9 @@ namespace BoxTI.Challenge.CovidTracking.Data.Migrations
 
             modelBuilder.Entity("BoxTI.Challenge.CovidTracking.Models.Entities.Covid", b =>
                 {
-                    b.HasOne("BoxTI.Challenge.CovidTracking.Models.Entities.Region", "Region")
+                    b.HasOne("BoxTI.Challenge.CovidTracking.Models.Entities.Region", "Country")
                         .WithMany()
-                        .HasForeignKey("RegionId")
+                        .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
