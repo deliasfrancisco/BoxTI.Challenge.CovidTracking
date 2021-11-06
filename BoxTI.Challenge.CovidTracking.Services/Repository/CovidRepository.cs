@@ -4,6 +4,7 @@ using BoxTI.Challenge.CovidTracking.Services.IRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,20 +22,23 @@ namespace BoxTI.Challenge.CovidTracking.Services.Repository
 		public async Task<List<Covid>> GetAll()
 		{
 			return await _context.Set<Covid>()
-				.Include(x => x.Country)
+				.Include(x => x.Region)
+				.OrderByDescending(o => o.Infected)
 				.ToListAsync();
 		}
 
 		public async Task<Covid> GetById(int id)
 		{
-			return await _context.Set<Covid>().FirstOrDefaultAsync(x => x.Id == id);
+			return await _context.Set<Covid>()
+				.Include(x => x.Region)
+				.FirstOrDefaultAsync(x => x.Id == id);
 		}
 
 		public async Task<Covid> GetByCountry(string name)
 		{
 			return await _context.Set<Covid>()
-				.Include(x => x.Country)
-				.FirstOrDefaultAsync(x => x.Country.Name == name);
+				.Include(x => x.Region)
+				.FirstOrDefaultAsync(x => x.Region.Name == name);
 		}
 
 		public async Task<bool> SaveChangesAsync()

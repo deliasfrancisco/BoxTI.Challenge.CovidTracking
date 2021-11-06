@@ -11,20 +11,20 @@ namespace BoxTI.Challenge.CovidTracking.Models.Entities
 		public int Infected { get; private set; }
 		public int Dead { get; private set; }
 		public int Recovered { get; private set; }
-		public int CountryId { get; private set; }
-		public Country Country { get; private set; }
+		public int RegionId { get; private set; }
+		public Region Region { get; private set; }
 
-		public Covid(int infected, int dead, int recovered, int countryId)
+		public Covid(int infected, int dead, int recovered, int regionId)
 		{
 			DomainException.ToThrow(infected < 0, "Infected amount invalid");
 			DomainException.ToThrow(dead < 0, "Dead amount invalid");
 			DomainException.ToThrow(recovered < 0, "Recovered amount invalid");
-			DomainException.ToThrow(countryId <= 0, "GuiaId invalid");
+			DomainException.ToThrow(regionId <= 0, " region id is invalid");
 
 			Infected = infected;
 			Dead = dead;
 			Recovered = recovered;
-			CountryId = countryId;
+			RegionId = regionId;
 		}
 	}
 }
